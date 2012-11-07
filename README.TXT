@@ -23,6 +23,10 @@ Tell me what you need.
 
 UPDATES:
 --------
+current:
+FDS and vcr6 sound are enabled in NSF mode
+sprite0y is updated in sp-pertile mode
+
 1.3a:
 alpha blend fixed.
 touch the current menu item to hide menu.
