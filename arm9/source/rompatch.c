@@ -3308,11 +3308,15 @@ void romcorrect(char *s)
 	for(i = 0; i < sizeof(romdb); i += 3) {
 		if(romdb[i] == crcall || romdb[i + 1] == crc) {
 			unsigned int tmp = romdb[i + 2];
-			rom[6] = tmp & 0xff;
-			rom[7] = (tmp >> 8) & 0xff;
-			__emuflags &= ~PALTIMING;
-			if(! (tmp & (1 << 16)))
-				__emuflags |= PALTIMING;
+			int oldmapper = (rom[6] >> 4) | (rom[7] & 0xf0);
+			int newmapper = ((tmp & 0xff) >> 4) | ((tmp >> 8) & 0xf0);
+			if(oldmapper == newmapper) {
+				rom[6] = tmp & 0xff;
+				rom[7] = (tmp >> 8) & 0xff;
+				__emuflags &= ~PALTIMING;
+				if(! (tmp & (1 << 16)))
+					__emuflags |= PALTIMING;
+			}
 			break;
 		}
 	}

@@ -111,7 +111,7 @@ int debugdump() {
 			consoletext(64 * 4 + i * 32, debugtxt[i], 0);
 			hex32(64 * 4 + i * 32 + 14, debuginfo[i]);
 		}
-#if 0
+#if 1
 		for(i = 0; i < 8; i++) {
 			hex(64 * 15 + i * 8, __nes_chr_map[i], 2);
 		}
@@ -119,7 +119,7 @@ int debugdump() {
 			hex(64 * 16 + i * 8, (__memmap_tbl[i + 4] - __rombase)/0x2000 + i + 4, 2);
 		}
 #endif
-#if 0
+#if 1
 		for (i = 0;i < 96; i++)
 		{
 			hex8(64*17 + i*8, mapperstate[i]);

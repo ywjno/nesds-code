@@ -63,11 +63,13 @@ pcmirqcount = mapperdata+28
 _xx:@	???					@invalid opcode
 @---------------------------------------------------------------------------------
 	DEBUGCOUNT BADOP
+	bl debugstep
 	fetch 2
 @---------------------------------------------------------------------------------
 _00:@   BRK
 @---------------------------------------------------------------------------------
 	DEBUGCOUNT BRK
+	bl debugstep
 
 	ldr_ r0,lastbank
 	sub r1,m6502_pc,r0
@@ -1379,12 +1381,12 @@ debugwrite:
 
 @---------------------------------------------------------------------------------
 debugstep:
-	stmfd sp!, {r0-r12, lr}
+	stmfd sp!, {r0-r3, lr}
 	adr_ r2,cpuregs
 	stmia r2,{m6502_nz-m6502_pc}		@refresh 6502 state
 	bl stepdebug
 
-	ldmfd sp!, {r0-r12, pc}
+	ldmfd sp!, {r0-r3, pc}
 
 @---------------------------------------------------------------------------------
 .section .dtcm, "aw"
@@ -1421,10 +1423,10 @@ op_table:
 	.word PPU_W	@$2000
 	.word IO_W	@$4000
 	.word sram_W	@$6000
-	.word void	@$8000
-	.word void	@$A000
-	.word void	@$C000
-	.word void	@$E000
+	.word rom_W80	@$8000
+	.word rom_WA0	@$A000
+	.word rom_WC0	@$C000
+	.word rom_WE0	@$E000
    @memmap_tbl
 __memmap_tbl:
 	.word NES_RAM		@$0000   0000-7fff
