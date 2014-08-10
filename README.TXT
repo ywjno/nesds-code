@@ -23,6 +23,9 @@ Tell me what you need.
 
 UPDATES:
 --------
+2014-08:
+mapper5 update.
+
 current:
 FDS and vcr6 sound are enabled in NSF mode
 sprite0y is updated in sp-pertile mode

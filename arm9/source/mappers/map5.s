@@ -102,6 +102,8 @@ _05:
 	beq mirror5_1
 	cmp r0,#0
 	beq mirror5_1
+	cmp r0, #0xaa
+	beq mirror_xram_0000
 	cmp r0,#0xE4
 	beq mirror4_
 	eor r1,r0,r0,lsr#4
@@ -327,9 +329,14 @@ setEnIrq:
 	mov pc,lr
 @---------------------------------------------------------------------------------
 mmc5_c00w:
-	ldr r1, =NES_XRAM - 0x4000
-	strb r0, [r1, addy]
-	mov pc, lr
+	@dup write, no need
+	@ldr r1, =NES_XRAM - 0x4000
+	@strb r0, [r1, addy]
+
+	/* update BG */
+	ldr r1, =NES_XRAM + 0x1C00
+	ldr r2, =NDS_BG+0x2000
+	b writeBG
 @---------------------------------------------------------------------------------
 @ never reach here, the NES_XRAM is read from memmap_tbl
 mmc5_c00r:

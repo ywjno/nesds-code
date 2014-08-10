@@ -42,6 +42,7 @@
 	.global mirror2H_
 	.global mirror4_
 	.global mirrorKonami_
+	.global mirror_xram_0000
 	.global agb_bg_map
 	.global resetCHR
 	.global writeCHRTBL
@@ -1090,6 +1091,9 @@ m0011:	.word BGCNT+0x8000,NES_VRAM+0x2000,NES_VRAM+0x2000,NES_VRAM+0x2400,NES_VR
 	.word NDS_BG+0x0000,NDS_BG+0x0000,NDS_BG+0x0800,NDS_BG+0x0800
 m0123:	.word BGCNT+0xc000,NES_VRAM+0x2000,NES_VRAM+0x2400,NES_VRAM+0x2800,NES_VRAM+0x2c00
 	.word NDS_BG+0x0000,NDS_BG+0x0800,NDS_BG+0x1000,NDS_BG+0x1800
+@mapper5 need this
+m0000_xram:	.word BGCNT+0x0400,NES_XRAM+0x1C00,NES_XRAM+0x1C00,NES_XRAM+0x1C00,NES_XRAM+0x1C00
+	.word NDS_BG+0x2000,NDS_BG+0x2000,NDS_BG+0x2000,NDS_BG+0x2000
 @---------------------------------------------------------------------------------
 mirror1H_:
 	adreq r0,m1111
@@ -1111,6 +1115,9 @@ mirror2V_:
 mirror2H_:
 	adreq r0,m0011
 	adrne r0,m0101
+	b mirrorchange
+mirror_xram_0000:
+	adr r0,m0000_xram
 	b mirrorchange
 mirror4_:
 	adr r0,m0123
